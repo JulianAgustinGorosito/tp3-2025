@@ -11,7 +11,7 @@ filtro.addEventListener("click",(e)=>{
     if(palabra === ""){
         error.innerText = "Ingrese una palabra"
     }else{
-        error.innerText = ""
+        error.innerText = " "
     }
 
     const filtrado = lista.filter((busqueda)=>{
