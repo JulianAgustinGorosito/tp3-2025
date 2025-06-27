@@ -9,7 +9,7 @@ filtro.addEventListener("click",(e)=>{
     const error = document.getElementById("error")
 
     if(palabra === ""){
-        error.innerText = "Error, ingrese una palabra"
+        error.innerText = "Ingrese una palabra"
     }else{
         error.innerText = ""
     }
