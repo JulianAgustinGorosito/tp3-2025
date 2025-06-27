@@ -1,28 +1,41 @@
-const lista = ["naranja","manzana","sandia","durazno","banana","frutilla"]
+const palabras = ["manzana", "banana", "pera", "durazno", "frutilla", "mango"];
 
-const filtro = document.getElementById("filtro")
+const botonFiltrar = document.getElementById("filtro");
+const listaHTML = document.getElementById("resultado");
+const mensajeError = document.getElementById("error");
 
-filtro.addEventListener("click",(e)=>{
-    e.preventDefault()
+// Mostrar todas las palabras al inicio
+function mostrarLista(palabrasParaMostrar) {
+  listaHTML.innerHTML = "";
+  palabrasParaMostrar.forEach(palabra => {
+    const li = document.createElement("li");
+    li.textContent = palabra;
+    listaHTML.appendChild(li);
+  });
+}
 
-    const palabra = document.getElementById("text").value.trim().toLowerCase()
-    const error = document.getElementById("error")
+mostrarLista(palabras);
 
-    if(palabra === ""){
-        error.innerText = "Ingrese una palabra"
-    }else{
-        error.innerText = "  "
-    }
+botonFiltrar.addEventListener("click", (evento) => {
+  evento.preventDefault();
 
-    const filtrado = lista.filter((busqueda)=>{
-        return busqueda === palabra
+  const entrada = document.getElementById("text").value.trim().toLowerCase();
 
-    })
-    
-    if(filtrado.length != 0){
-        const listaFiltrada = document.createElement("ul")
-        document.body.appendChild(listaFiltrada)
-        listaFiltrada.innerText = filtrado
-    }   
-    
-})
+  if (entrada === "") {
+    mensajeError.textContent = "Por favor, escriba una palabra para buscar.";
+    mostrarLista(palabras); 
+    return;
+  } else {
+    mensajeError.textContent = "";
+  }
+
+  const coincidencias = palabras.filter(item =>
+    item.toLowerCase().includes(entrada)
+  );
+
+  if (coincidencias.length > 0) {
+    mostrarLista(coincidencias);
+  } else {
+    listaHTML.innerHTML = "<li>No hay coincidencias</li>";
+  }
+});
